@@ -41,7 +41,7 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
                   name={args.name as string}
                   severity={args.severity as number | undefined}
                   category={args.category as string}
-                  result={toolPart.output as Record<string, unknown>}
+                  result={toolPart.output as { success: boolean; symptomId: string; message: string } | undefined}
                 />
               );
             }
