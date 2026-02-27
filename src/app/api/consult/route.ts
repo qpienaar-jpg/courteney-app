@@ -61,7 +61,6 @@ export async function POST(req: Request) {
     system: CONSULTATION_SYSTEM_PROMPT,
     messages: modelMessages,
     tools,
-    maxSteps: 3,
     onFinish: async ({ text }) => {
       if (text) {
         await prisma.message.create({
