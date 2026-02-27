@@ -2,26 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer components {
+  /* Primary button - courteney purple */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full
+      bg-courteney-purple-600 px-6 py-3 text-sm font-semibold text-white
+      shadow-sm transition-colors
+      hover:bg-courteney-purple-700
+      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+      focus-visible:outline-courteney-purple-600;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Secondary button - courteney pink */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full
+      bg-courteney-pink-400 px-6 py-3 text-sm font-semibold text-white
+      shadow-sm transition-colors
+      hover:bg-courteney-pink-500
+      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+      focus-visible:outline-courteney-pink-400;
+  }
+
+  /* Card */
+  .card {
+    @apply rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5
+      transition-shadow hover:shadow-md;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* Chat typing indicator animation */
+@keyframes chat-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-6px);
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.typing-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: theme("colors.courteney.purple.400");
+  animation: chat-bounce 1.4s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Print styles */
+@media print {
+  .no-print,
+  nav {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb;
+    break-inside: avoid;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #6b7280;
   }
 }
