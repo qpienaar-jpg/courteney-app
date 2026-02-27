@@ -4,8 +4,22 @@ import { useState, useEffect, useCallback } from "react";
 import { FilterBar } from "@/components/logbook/FilterBar";
 import { SymptomTimeline } from "@/components/logbook/SymptomTimeline";
 
+interface Symptom {
+  id: string;
+  name: string;
+  category: string;
+  severity: number | null;
+  frequency: string | null;
+  bodyArea: string | null;
+  triggers: string | null;
+  associatedSymptoms: string | null;
+  notes: string | null;
+  createdAt: string;
+  onsetDate: string | null;
+}
+
 export default function LogbookPage() {
-  const [symptoms, setSymptoms] = useState<Record<string, unknown>[]>([]);
+  const [symptoms, setSymptoms] = useState<Symptom[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
