@@ -22,7 +22,7 @@ interface Symptom {
 interface SymptomTimelineProps {
   symptoms: Symptom[];
   total: number;
-  page: number;
+  page?: number;
   onLoadMore: () => void;
   loading: boolean;
 }
@@ -37,7 +37,6 @@ function getDateGroup(dateStr: string): string {
 export function SymptomTimeline({
   symptoms,
   total,
-  page: _page,
   onLoadMore,
   loading,
 }: SymptomTimelineProps) {
