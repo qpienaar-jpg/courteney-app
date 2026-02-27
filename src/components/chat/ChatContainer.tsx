@@ -1,39 +1,23 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useState, useRef, useEffect, useCallback } from "react";
+import { DefaultChatTransport } from "ai";
+import { useRef, useEffect, useCallback, useMemo } from "react";
 import { Heart } from "lucide-react";
 import MessageBubble from "./MessageBubble";
 import ChatInput from "./ChatInput";
 import TypingIndicator from "./TypingIndicator";
 
 export default function ChatContainer() {
-  const [consultationId, setConsultationId] = useState<string | null>(null);
-  const consultationIdRef = useRef<string | null>(null);
+  const transport = useMemo(
+    () =>
+      new DefaultChatTransport({
+        api: "/api/consult",
+      }),
+    []
+  );
 
-  // Keep ref in sync so fetch callback has latest value
-  useEffect(() => {
-    consultationIdRef.current = consultationId;
-  }, [consultationId]);
-
-  const { messages, sendMessage, status } = useChat({
-    fetch: async (input, init) => {
-      // Inject consultationId into the request body
-      if (init?.body) {
-        const body = JSON.parse(init.body as string);
-        body.consultationId = consultationIdRef.current;
-        init = { ...init, body: JSON.stringify(body) };
-      }
-      const response = await fetch(input, init);
-      // Read consultation ID from response header
-      const id = response.headers.get("X-Consultation-Id");
-      if (id && id !== consultationIdRef.current) {
-        setConsultationId(id);
-      }
-      return response;
-    },
-    api: "/api/consult",
-  });
+  const { messages, sendMessage, status } = useChat({ transport });
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
