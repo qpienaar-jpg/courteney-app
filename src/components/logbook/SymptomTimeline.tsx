@@ -37,7 +37,7 @@ function getDateGroup(dateStr: string): string {
 export function SymptomTimeline({
   symptoms,
   total,
-  page,
+  page: _page,
   onLoadMore,
   loading,
 }: SymptomTimelineProps) {

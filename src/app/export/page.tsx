@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Download, FileText, Printer } from "lucide-react";
+import { FileText, Printer } from "lucide-react";
 import { format, subDays } from "date-fns";
 import { SYMPTOM_CATEGORIES } from "@/lib/ai/symptom-categories";
 import type { CategoryKey } from "@/lib/ai/symptom-categories";

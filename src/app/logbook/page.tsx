@@ -5,7 +5,7 @@ import { FilterBar } from "@/components/logbook/FilterBar";
 import { SymptomTimeline } from "@/components/logbook/SymptomTimeline";
 
 export default function LogbookPage() {
-  const [symptoms, setSymptoms] = useState<any[]>([]);
+  const [symptoms, setSymptoms] = useState<Record<string, unknown>[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);

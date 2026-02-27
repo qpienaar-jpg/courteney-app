@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp, Calendar, Activity } from "lucide-react";
+import { ChevronDown, ChevronUp, Calendar } from "lucide-react";
 import { SYMPTOM_CATEGORIES, BODY_AREAS, FREQUENCY_OPTIONS } from "@/lib/ai/symptom-categories";
 import type { CategoryKey } from "@/lib/ai/symptom-categories";
 import { getSeverityColor, getSeverityBgColor, getSeverityLabel } from "@/lib/utils/severity";

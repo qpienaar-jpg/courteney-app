@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { Search, X } from "lucide-react";
-import { SYMPTOM_CATEGORIES, BODY_AREAS, FREQUENCY_OPTIONS } from "@/lib/ai/symptom-categories";
+import { SYMPTOM_CATEGORIES, BODY_AREAS } from "@/lib/ai/symptom-categories";
 
 interface FilterBarProps {
   onFiltersChange: (filters: Record<string, string>) => void;
