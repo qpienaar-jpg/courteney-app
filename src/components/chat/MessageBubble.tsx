@@ -30,26 +30,27 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
             );
           }
 
-          if (part.type === "tool-invocation") {
-            const { toolName, state, args, result } = part.toolInvocation;
+          if (part.type.startsWith("tool-")) {
+            const toolPart = part as { type: string; toolCallId: string; toolName?: string; state: string; input?: Record<string, unknown>; output?: Record<string, unknown> };
 
-            if (toolName === "log_symptom" && state === "result") {
+            if (toolPart.toolName === "log_symptom" && toolPart.state === "result") {
+              const args = (toolPart.input ?? {}) as Record<string, unknown>;
               return (
                 <SymptomCard
-                  key={part.toolInvocation.toolCallId}
-                  name={args.name}
-                  severity={args.severity}
-                  category={args.category}
-                  result={result}
+                  key={toolPart.toolCallId}
+                  name={args.name as string}
+                  severity={args.severity as number | undefined}
+                  category={args.category as string}
+                  result={toolPart.output as Record<string, unknown>}
                 />
               );
             }
 
             // Show a loading state for in-progress tool calls
-            if (state === "call") {
+            if (toolPart.state === "call" || toolPart.state === "input-streaming") {
               return (
                 <div
-                  key={part.toolInvocation.toolCallId}
+                  key={toolPart.toolCallId}
                   className="mt-2 flex items-center gap-2 text-xs text-courteney-purple-500"
                 >
                   <div className="h-4 w-4 animate-spin rounded-full border-2 border-courteney-purple-300 border-t-courteney-purple-600" />
